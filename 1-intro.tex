@@ -1,0 +1,128 @@
+% Author: Nicolò Cesa-Bianchi (2016)
+% This document is licensed under Creative Commons BY-NC-SA.
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage[italian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defi}[theorem]{Definizione}
+\newtheorem{cor}[theorem]{Corollario}
+\newtheorem{example}[theorem]{Esempio}
+\newtheorem{fact}[theorem]{Fatto}
+
+\newcommand{\figscale}[2]{\includegraphics[scale=#2,clip=false]{#1}}
+
+\newlength{\parunit}
+\setlength{\parunit}{3mm}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\parunit}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+\newcommand{\ssep}{\\[1.5\parunit]}
+\newcommand{\msep}{\\[2.0\parunit]}
+
+\newcommand{\scO}{\mathcal{O}}
+\newcommand{\bg}{ \boldsymbol{g} }
+\newcommand{\bu}{ \boldsymbol{u} }
+\newcommand{\bv}{ \boldsymbol{v} }
+\newcommand{\bw}{ \boldsymbol{w} }
+\newcommand{\bx}{ \boldsymbol{x} }
+\newcommand{\by}{ \boldsymbol{y} }
+\newcommand{\bX}{ \boldsymbol{X} }
+\newcommand{\bY}{ \boldsymbol{Y} }
+\newcommand{\bz}{ \boldsymbol{z} }
+\newcommand{\be}{ \boldsymbol{e} }
+\newcommand{\bone}{ \boldsymbol{1} }
+\newcommand{\bzero}{ \boldsymbol{0} }
+\newcommand{\bphi}{ \boldsymbol{\phi} }
+\newcommand{\bxi}{ \boldsymbol{\xi} }
+\newcommand{\bsigma}{ \boldsymbol{\sigma} }
+\newcommand{\bbw}{\overline{\bw}}
+\newcommand{\scD}{\mathcal{D}}
+\newcommand{\scH}{\mathcal{H}}
+\newcommand{\scF}{\mathcal{F}}
+\newcommand{\scM}{\mathcal{M}}
+\newcommand{\scP}{\mathcal{P}}
+\newcommand{\scR}{\mathcal{R}}
+\newcommand{\scX}{\mathcal{X}}
+\newcommand{\scY}{\mathcal{Y}}
+\newcommand{\yhat}{\widehat{y}}
+\newcommand{\Yhat}{\widehat{Y}}
+\newcommand{\hhat}{\widehat{h}}
+\newcommand{\fhat}{\widehat{f}}
+\newcommand{\defeq}{\stackrel{\rm def}{=}}
+\newcommand{\ol}{\overline}
+\newcommand{\loss}{\ell}
+\newcommand{\er}{\mathrm{er}}
+\newcommand{\sgn}{\mathrm{sgn}}
+\renewcommand{\ss}{\subseteq}
+\newcommand{\bool}{\{0,1\}}
+\newcommand{\spin}{\{-1,+1\}}
+\newcommand{\norm}[1]{ \left\|{#1}\right\| }
+\newcommand{\theset}[2]{ \left\{ {#1} \,:\, {#2} \right\} }
+\newcommand{\field}[1]{\mathbb{#1}}
+\renewcommand{\Pr}{\field{P}}
+\newcommand{\R}{\field{R}}
+\newcommand{\E}{\field{E}}
+\newcommand{\Ind}[1]{\field{I}{\{{#1}\}}}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\dt}{\displaystyle}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+
+\begin{document}
+
+\begin{center}
+\fbox{
+\begin{minipage}{0.9\textwidth}
+\textbf{(F1X) Teoria dell'Informazione e della Trasmissione}
+\begin{center}
+\textbf{\Large Introduzione}
+\end{center}
+Docente: \textit{Nicolò Cesa-Bianchi} \hfill versione \today
+\end{minipage}
+}
+\end{center}
+
+\bigskip
+
+La teoria dell'informazione è alla base di importanti settori dell'informatica e delle telecomunicazioni, come la compressione e la trasmissione dati, l'apprendimento automatico e la crittografia. Le principali teorie formali del concetto di informazione sono due:
+\begin{enumerate}
+\item Quella di Claude Shannon (USA, 1916--2001) formulata nel 1948 e basata sulla teoria della probabilità.
+\item Quella di Andrey Kolmogorov (URSS, 1903--1987) formulata nel 1965 e basata sulla teoria della computazione. La stessa teoria venne indipendentemente proposta anche da Gregory Chaitin (USA, 1947--\ ) e Ray Solomonoff (USA, 1926--2009), 
+\end{enumerate}
+In un certo senso, la teoria di Kolmogorov è più astratta di quella di Shannon, che ---per contro--- ha una maggiore rilevanza applicativa
+
+La teoria dell'informazione di Shannon è stata formulata nel lavoro ``A Mathematical Theory of Communication'', pubblicato dai Bell Labs nel 1948. Il problema che la teoria di Shannon affronta è quello di trasmettere informazione attraverso un canale affetto da rumore.
+
+\begin{figure}[h]
+\begin{center}
+\figscale{Images/canale}{0.7}
+\end{center}
+\caption{
+\label{fig:canale}
+Modello di canale con rumore.
+}
+\end{figure}
+
+Più precisamente, si vuole codificare i messaggi in modo da massimizzare l'informazione trasmessa ad ogni utilizzo del canale, minimizzando simultaneamente gli errori di trasmissione dovuti alla presenza di rumore. Il problema è che l'informazione non è distribuita in modo uniforme nel messaggio. Di conseguenza è difficile controllare gli errori di trasmissione. La metodologia ideata da Shannon consiste nel separare il problema in due sottoproblemi da affrontare separatamente: prima codifico in modo da concentrare l'informazione eliminando la ridondanza nel messaggio, poi ricodifico al fine di minimizzare gli errori di trasmissione.
+
+In pratica, bisogna quindi sviluppare due codifiche separate.
+\begin{enumerate}
+\item \textbf{Source Coding} (I teorema di Shannon). Codice per rappresentare il messaggio in modo da massimizzare la compressione (per esempio, \texttt{ZIP}).
+\item \textbf{Channel Coding} (II teorema di Shannon). Codice per rappresentare il messaggio in modo da minimizzare gli errori di trasmissione.
+\end{enumerate}
+La codifica sorgente (source coding) elimina la maggior parte della ridondanza nel messaggio, concentrando l'informazione. La codifica di canale (channel coding) reintroduce ridondanza in modo controllato al fine di contrastare la distorsione prodotta dal rumore.
+
+Il primo e secondo teorema di Shannon vengono poi combinati per dimostrare il teorema di codifica congiunta sorgente-canale. Questo teorema dimostra che la codifica a due stadi, dove prima comprimiamo la sorgente e poi creiamo un codice canale per trasmettere i simboli compressi, è ottima. Questo non è scontato, infatti il codice sorgente ignora il canale, mentre il codice canale ignora la sorgente. Il teorema invece dimostra che non c'è modo di avere una codifica più efficiente anche considerando simultaneamente sorgente e canale.
+
+\end{document}

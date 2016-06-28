@@ -1,0 +1,168 @@
+% Author: Nicolò Cesa-Bianchi (2016)
+% This document is licensed under Creative Commons BY-NC-SA.
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage[italian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defi}[theorem]{Definizione}
+\newtheorem{cor}[theorem]{Corollario}
+\newtheorem{example}[theorem]{Esempio}
+\newtheorem{fact}[theorem]{Fatto}
+
+\newcommand{\figscale}[2]{\includegraphics[scale=#2,clip=false]{#1}}
+
+\newlength{\parunit}
+\setlength{\parunit}{3mm}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\parunit}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+\newcommand{\ssep}{\\[1.5\parunit]}
+\newcommand{\msep}{\\[2.0\parunit]}
+
+\newcommand{\scO}{\mathcal{O}}
+\newcommand{\bg}{ \boldsymbol{g} }
+\newcommand{\bu}{ \boldsymbol{u} }
+\newcommand{\bv}{ \boldsymbol{v} }
+\newcommand{\bw}{ \boldsymbol{w} }
+\newcommand{\bx}{ \boldsymbol{x} }
+\newcommand{\by}{ \boldsymbol{y} }
+\newcommand{\bX}{ \boldsymbol{X} }
+\newcommand{\bY}{ \boldsymbol{Y} }
+\newcommand{\bz}{ \boldsymbol{z} }
+\newcommand{\be}{ \boldsymbol{e} }
+\newcommand{\bone}{ \boldsymbol{1} }
+\newcommand{\bzero}{ \boldsymbol{0} }
+\newcommand{\bphi}{ \boldsymbol{\phi} }
+\newcommand{\bxi}{ \boldsymbol{\xi} }
+\newcommand{\bsigma}{ \boldsymbol{\sigma} }
+\newcommand{\bbw}{\overline{\bw}}
+\newcommand{\scD}{\mathcal{D}}
+\newcommand{\scH}{\mathcal{H}}
+\newcommand{\scF}{\mathcal{F}}
+\newcommand{\scM}{\mathcal{M}}
+\newcommand{\scP}{\mathcal{P}}
+\newcommand{\scR}{\mathcal{R}}
+\newcommand{\scX}{\mathcal{X}}
+\newcommand{\scY}{\mathcal{Y}}
+\newcommand{\yhat}{\widehat{y}}
+\newcommand{\Yhat}{\widehat{Y}}
+\newcommand{\hhat}{\widehat{h}}
+\newcommand{\fhat}{\widehat{f}}
+\newcommand{\defeq}{\stackrel{\rm def}{=}}
+\newcommand{\ol}{\overline}
+\newcommand{\loss}{\ell}
+\newcommand{\er}{\mathrm{er}}
+\newcommand{\sgn}{\mathrm{sgn}}
+\renewcommand{\ss}{\subseteq}
+\newcommand{\bool}{\{0,1\}}
+\newcommand{\spin}{\{-1,+1\}}
+\newcommand{\norm}[1]{ \left\|{#1}\right\| }
+\newcommand{\theset}[2]{ \left\{ {#1} \,:\, {#2} \right\} }
+\newcommand{\field}[1]{\mathbb{#1}}
+\renewcommand{\Pr}{\field{P}}
+\newcommand{\R}{\field{R}}
+\newcommand{\N}{\field{N}}
+\newcommand{\E}{\field{E}}
+\newcommand{\Ind}[1]{\field{I}{\{{#1}\}}}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\dt}{\displaystyle}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+
+\begin{document}
+
+\begin{center}
+\fbox{
+\begin{minipage}{0.9\textwidth}
+\textbf{(F1X) Teoria dell'Informazione e della Trasmissione}
+\begin{center}
+\textbf{\Large Codifica sorgente: definizioni}
+\end{center}
+Docente: \textit{Nicolò Cesa-Bianchi} \hfill versione \today
+\end{minipage}
+}
+\end{center}
+
+\bigskip
+
+I messaggi da trasmettere sono generati da un'entità astratta chiamata sorgente. Sia $\scX$ l'insieme finito di simboli che compongono i messaggi generati dalla sorgente. Un messaggio $\bx = (x_1,\dots,x_n) \in \scX^n$ di lunghezza $n$ è una sequenza di $n$ simboli sorgente. Una funzione di codifica mappa simboli sorgente in parole di codice. Una parola di codice è una sequenza di numeri dall'insieme $\{0,\dots,D-1\}$ dei simboli di codice, dove $D > 1$ è la base del codice. Per esempio, con $D=2$ otteniamo i codici binari. In questo senso, possiamo rappresentare una funzione di codifica per un codice sorgente con
+\[
+    c : \scX \to \{0,\dots,D-1\}^+
+\]
+dove $\{0,\dots,D-1\}^+$ rappresenta l'insieme delle sequenze su $\{0,\dots,D-1\}$ di lunghezza maggiore o uguale a uno. Formalmente,
+\[
+    \{0,\dots,D-1\}^+ = \bigcup_{n=1}^{\infty} \{0,\dots,D-1\}^n~.
+\]
+Per esempio, $(2,1)$ e $(4,7,3)$ appartengono entrambe a $\{0,\dots,D-1\}^+$ per $D=8$.
+%
+\begin{example}
+\label{ex:1}
+Dato $\scX = \{\heartsuit,\diamondsuit,\clubsuit,\spadesuit\}$, un esempio di codice binario $c : \scX\to\{0,1\}^+$ è il seguente:
+\[
+    c(\heartsuit) = 0 \quad c(\diamondsuit) = 010 \quad c(\clubsuit) = 01 \quad c(\spadesuit) = 10~.
+\]
+\end{example}
+%
+Dato che l'obiettivo di un codice sorgente è massimizzare la compressione, siamo interessati a misurare la quantità $\ell_c(x)$ definita come la lunghezza della parola di codice $c(x)$ per il simbolo $x\in\scX$. Nell'esempio precedente, $\ell_c(\diamondsuit) = 3$.
+%Definiamo anche la lunghezza totale della codifica di $\bx = (x_1,\dots,x_n) \in \scX^n$ come
+%\[
+%    L_c(\bx) = \sum_{i=1}^n \ell_c(x_i)~.
+%\]
+L'obiettivo di un codice sorgente è quello di minimizzare la lunghezza media della parole di codice utilizzate per codificare i simbolo sorgente.
+
+L'intuizione alla base della costruzione di codici sorgente è la stessa dell'alfabeto Morse: utilizzare parole di codice corte per simboli generati frequentemente dalla sorgente. Per poterla analizzare in modo rigoroso dobbiamo creare un modello formale della sorgente. La proposta di Shannon è quella di definire una distribuzione di probabilità $p$ fissata su simboli sorgente e quindi assumere che $p(x)$ rappresenti la probabilità che la sorgente generi il simbolo $x\in\scX$. Un \textbf{modello di sorgente} è quindi definito dalla coppia $\langle\scX,p\rangle$.
+
+Si noti che, in realtà, la quantità di interesse qui è la distribuzione di probabilità sui messaggi $\bx$ piuttosto che sui simboli $x$, dato che i messaggi sono gli oggetti che vogliamo trasmettere. Data una distribuzione $p$ sui simboli $\scX$ definiamo quindi una distribuzione $P_n$ sui messaggi $\scX^n$ di lunghezza $n$ come
+\[
+    P_n(x_1,\dots,x_n) = p(x_1) \times\cdots\times p(x_n)~.
+\]
+Questa definizione di $P_n$ corrisponde ad assumere che la sorgente generi un messaggio attraverso estrazioni indipendenti di simboli. In generale, però, questa assunzione non è molto plausibile. Per esempio, pensiamo ad un messaggio di testo in italiano dove i simboli sorgente sono le lettere dell'alfabeto compreso spazi e punteggiatura. Chiaramente, ci sono delle forti dipendenze fra una lettera del messaggio e le lettere che le stanno attorno e tali dipendenze non sono catturate dalla $P_n$ definita come sopra. D'altra parte, l'analisi matematica è molto facilitata dall'assunzione di indipendenza. Nel seguito, assumeremo quindi l'indipendenza dei simboli sorgente, tenendo però in mente che codici sorgente più realistici e sofisticati sono ottenuti senza questa assunzione.
+
+D'ora in poi identifichiamo un simbolo emesso dalla sorgente tramite la variabile casuale $X : \scX\to\R$.
+% Si noti che la scelta dei reali $a$ sui quali la variabile casuale $X$ mappa i simboli sorgente non è importante.
+Fissato $D$ (base del codice) indichiamo con $\scD$ l'insieme $\{0,\dots,D-1\}$ dei simboli di codice con base $D$. Quindi una funzione di codifica, o codice, è una funzione del tipo $c : \scX\to\scD^+$.
+
+Siamo pronti per definire formalmente il problema della codifica sorgente: dato un modello di sorgente $\langle\scX,p\rangle$ e una base $D > 1$ trovare un codice $c : \scX\to\scD^+$ tale che il valore atteso
+\begin{equation}
+\label{eq:source-coding}
+    \E\bigl[\ell_c\bigr] = \sum_{x\in\scX} \ell_c(x)\,p(x)
+\end{equation}
+della lunghezza di parola di codice sia minimo.
+
+Formulato in questi termini, il problema della codifica sorgente si presta ad una soluzione banale e inutile. Infatti è ovvio che il codice $c : \scX\to\scD^+$ tale che $c(x)=0$ per ogni $x\in\scX$ minimizza $\E\bigl[\ell_c\bigr]$ per ogni modello di sorgente. Quindi, bisogna imporre delle limitazioni sulla classe di codici che vogliamo utilizzare per risolvere~(\ref{eq:source-coding}).
+
+Una prima limitazione è la seguente. Un codice $c : \scX\to\scD^+$ è \textbf{non singolare} se a simboli sorgente distinti corrispondono parole di codice distinte. Formalmente, per ogni $x,x'\in\scX$ tale che $x \neq x'$ vale $c(x) \neq c(x')$. In altre parole, la non singolarità del codice è equivalente all'iniettività della funzione di codifica. Questa è chiaramente una proprietà minimale per un codice utilizzabile in pratica.
+
+Ora introduciamo un concetto naturale: quello di \textbf{estensione di un codice}. L'estensione serve a definire in modo semplice la parola di codice associata ad un messaggio di una data lunghezza, ovvero ad una sequenza di simboli sorgente. Dato un codice $c : \scX\to\scD^+$, la sua estensione è la funzione $C : \scX^+\to\scD^+$ definita come
+$
+    C(x_1,\dots,x_n) = c(x_1) \cdots c(x_n)
+$, dove $c(x_1) \cdots c(x_n)$ indica la sequenza ottenuta giustapponendo le parole di codice $c(x_1),\dots,c(x_n)$.
+%
+\begin{example}
+\label{ex:2}
+L'estensione $C$ del codice definito nell'Esempio~\ref{ex:1} è tale che
+\[
+    C(\heartsuit,\spadesuit,\clubsuit) = c(\heartsuit)c(\spadesuit)c(\clubsuit) = 01001~.
+\]
+\end{example}
+%
+La proprietà di non singolarità non è abbastanza forte per garantire che essa venga ereditata anche dall'estensione di un codice. Infatti, l'estensione nell'Esempio~\ref{ex:2} è tale che
+\[
+    C(\diamondsuit) = C(\clubsuit,\heartsuit) = C(\heartsuit,\spadesuit) = 010~.
+\]
+Quindi mentre il codice $c$ dell'Esempio~\ref{ex:1} è non singolare la sua estensione $C$ non lo è.
+
+Motivati da questo esempio, introduciamo la nozione di codice \textbf{univocamente decodificabile}, ovvero di codice la cui estensione è non singolare. Formalmente, $c$ è univocamente decodificabile se $C$ è una funzione iniettiva. In pratica questa proprietà permette di decodificare i messaggi. Infatti, se $c$ è univocamente decodificabile allora per ogni $\by\in\scD^+$ trovo al più un unico messaggio $\bx\in\scX^+$ (la decodifica di $\by$) tale che $C(\bx) = \by$. La verifica per determinare se un dato codice $c$ sia univocamente decodificabile è realizzata dall'algoritmo di Sardinas-Patterson in tempo $\mathcal{O}(mL)$, dove $m$ è il numero delle parole di codice e $L$ è la somma delle loro lunghezze.
+
+\end{document}
