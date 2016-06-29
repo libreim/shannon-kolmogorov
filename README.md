@@ -1,4 +1,4 @@
-# shannon-kolmogorov
+# shannon-kolmogorov (Work in progress)
 
 Estos apuntes son una traducción sobre los apuntes de Teoria dell'Informazione e della Trasmissione de Nicolò Cesa-Bianchi para la Università degli Studi di Milano. Los originales (en italiano) pueden ser consultados en [su página personal](https://homes.di.unimi.it/~cesabian/tinfo/).
 
