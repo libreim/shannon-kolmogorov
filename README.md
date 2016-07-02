@@ -6,6 +6,6 @@ Este trabajo es una obra derivada licenciada bajo **Creative Commons BY-SA-NC**.
 
 ============
 
-*These notes are a traslation of the notes of the course Teoria dell'Informazione e della Trasmissione, written by __Nicolò Cesa-Bianchi__ and taught in the Università degli Studi di Milano. The original (Italian) notes can be found in his [personal webpage](https://homes.di.unimi.it/~cesabian/tinfo/).*
+*These notes are a translation of the notes of the course Teoria dell'Informazione e della Trasmissione, written by __Nicolò Cesa-Bianchi__ and taught in the Università degli Studi di Milano. The original (Italian) notes can be found in his [personal webpage](https://homes.di.unimi.it/~cesabian/tinfo/).*
 
 *These documents are derived works under* ***Creative Commons BY-SA-NC license.***
