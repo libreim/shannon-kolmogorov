@@ -3,18 +3,18 @@
 \documentclass[11pt]{article}
 
 \usepackage{fullpage}
-\usepackage[italian]{babel}
+\usepackage[spanish]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{graphicx}
 
 \newtheorem{theorem}{Teorema}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{defi}[theorem]{Definizione}
-\newtheorem{cor}[theorem]{Corollario}
-\newtheorem{example}[theorem]{Esempio}
-\newtheorem{fact}[theorem]{Fatto}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{defi}[theorem]{Definición}
+\newtheorem{cor}[theorem]{Corolario}
+\newtheorem{example}[theorem]{Ejemplo}
+\newtheorem{fact}[theorem]{Proposición}
 
 \newcommand{\figscale}[2]{\includegraphics[scale=#2,clip=false]{#1}}
 
@@ -85,49 +85,52 @@
 \begin{center}
 \fbox{
 \begin{minipage}{0.9\textwidth}
-\textbf{(F1X) Teoria dell'Informazione e della Trasmissione}
+\textbf{Teoría de la Información y de la Transmisión}
 \begin{center}
-\textbf{\Large Codifica sorgente: definizioni}
+\textbf{\Large Codificación de la fuente: definiciones}
 \end{center}
-Docente: \textit{Nicolò Cesa-Bianchi} \hfill versione \today
+Docente: \textit{Nicolò Cesa-Bianchi} \\ 
+Traducción: \textit{Mario Román} \\
+Licencia: Creative Commons BY-SA-NC \hfill versión \today 
 \end{minipage}
 }
 \end{center}
 
 \bigskip
 
-I messaggi da trasmettere sono generati da un'entità astratta chiamata sorgente. Sia $\scX$ l'insieme finito di simboli che compongono i messaggi generati dalla sorgente. Un messaggio $\bx = (x_1,\dots,x_n) \in \scX^n$ di lunghezza $n$ è una sequenza di $n$ simboli sorgente. Una funzione di codifica mappa simboli sorgente in parole di codice. Una parola di codice è una sequenza di numeri dall'insieme $\{0,\dots,D-1\}$ dei simboli di codice, dove $D > 1$ è la base del codice. Per esempio, con $D=2$ otteniamo i codici binari. In questo senso, possiamo rappresentare una funzione di codifica per un codice sorgente con
+Los mensajes a transmitir son generados desde una entidad abstracta llamada fuente. Sea $\scX$ el conjunto finito de símbolos que componen los mensajes generados por la fuente. Un mensaje $\bx = (x_1,\dots,x_n) \in \scX^n$ de longitud $n$ es una secuencia de $n$ símbolos fuente. Una función de codificación leva símbolos fuente a palabras de código. Una palabra de código es una secuencia de números del conjunto $\{0,\dots,D-1\}$ de los símbolos de código, donde $D > 1$ es la base del código. Por ejemplo, con $D=2$ obtenemos los códigos binarios. En este sentido, podemos representar una función de codificación por un código fuente con
+
 \[
     c : \scX \to \{0,\dots,D-1\}^+
 \]
-dove $\{0,\dots,D-1\}^+$ rappresenta l'insieme delle sequenze su $\{0,\dots,D-1\}$ di lunghezza maggiore o uguale a uno. Formalmente,
+donde $\{0,\dots,D-1\}^+$ representa el conjunto de las secuencias sobre $\{0,\dots,D-1\}$ de longitud mayor o igual a uno. Formalmente,
 \[
     \{0,\dots,D-1\}^+ = \bigcup_{n=1}^{\infty} \{0,\dots,D-1\}^n~.
 \]
-Per esempio, $(2,1)$ e $(4,7,3)$ appartengono entrambe a $\{0,\dots,D-1\}^+$ per $D=8$.
+Por ejemplo, $(2,1)$ y $(4,7,3)$ pertenecen ambas a $\{0,\dots,D-1\}^+$ con $D=8$.
 %
 \begin{example}
 \label{ex:1}
-Dato $\scX = \{\heartsuit,\diamondsuit,\clubsuit,\spadesuit\}$, un esempio di codice binario $c : \scX\to\{0,1\}^+$ è il seguente:
+Dado $\scX = \{\heartsuit,\diamondsuit,\clubsuit,\spadesuit\}$, un ejemplo de código binario $c : \scX\to\{0,1\}^+$ es el siguiente:
 \[
     c(\heartsuit) = 0 \quad c(\diamondsuit) = 010 \quad c(\clubsuit) = 01 \quad c(\spadesuit) = 10~.
 \]
 \end{example}
 %
-Dato che l'obiettivo di un codice sorgente è massimizzare la compressione, siamo interessati a misurare la quantità $\ell_c(x)$ definita come la lunghezza della parola di codice $c(x)$ per il simbolo $x\in\scX$. Nell'esempio precedente, $\ell_c(\diamondsuit) = 3$.
+Dado que el objetivo de un código fuente es maximizar la compresión, estamos interesados en medir la cantidad $\ell_c(x)$ definida como la longitud de la palabra de código $c(x)$ para el símbolo $x\in\scX$. En el ejemplo precedente, $\ell_c(\diamondsuit) = 3$.
 %Definiamo anche la lunghezza totale della codifica di $\bx = (x_1,\dots,x_n) \in \scX^n$ come
 %\[
 %    L_c(\bx) = \sum_{i=1}^n \ell_c(x_i)~.
 %\]
-L'obiettivo di un codice sorgente è quello di minimizzare la lunghezza media della parole di codice utilizzate per codificare i simbolo sorgente.
+El objetivo de un código fuente es el de minimizar la longitud media de la palabra de código utilizada para codificar los símbolos fuente.
 
-L'intuizione alla base della costruzione di codici sorgente è la stessa dell'alfabeto Morse: utilizzare parole di codice corte per simboli generati frequentemente dalla sorgente. Per poterla analizzare in modo rigoroso dobbiamo creare un modello formale della sorgente. La proposta di Shannon è quella di definire una distribuzione di probabilità $p$ fissata su simboli sorgente e quindi assumere che $p(x)$ rappresenti la probabilità che la sorgente generi il simbolo $x\in\scX$. Un \textbf{modello di sorgente} è quindi definito dalla coppia $\langle\scX,p\rangle$.
+La intución en la base de la construcción de códigos fuente es la misma del alfabeto Morse: utilizar palabras de código cortas para los símbolos que son generados frecuentemente por la fuente. Para poder analizar de modo riguroso debemos crear un modelo formal de la fuente. La propuesta de Shannon es la de definir una distribución de probabilidad $p$ fijada sobre símbolos fuente y entonces asumir que $p(x)$ represente la probabilidad de que la fuente genere el símbolo $x\in\scX$. Un \textbf{modelo de fuente} está entonces definido por la pareja $\langle\scX,p\rangle$.
 
-Si noti che, in realtà, la quantità di interesse qui è la distribuzione di probabilità sui messaggi $\bx$ piuttosto che sui simboli $x$, dato che i messaggi sono gli oggetti che vogliamo trasmettere. Data una distribuzione $p$ sui simboli $\scX$ definiamo quindi una distribuzione $P_n$ sui messaggi $\scX^n$ di lunghezza $n$ come
+Nótese que, en realidad, la cantidad interesante aquí es la distribución de probabilidad sobre los mensajes $\bx$ más que sobre los símbolos $x$, dado que los mensajes son los objetos que queremos transmitir. Dada una distribución $p$ sobre símbolos $\scX$ definimos entonces una distribución $P_n$ sobre los mensajes $\scX^n$ de longitud $n$ como
 \[
     P_n(x_1,\dots,x_n) = p(x_1) \times\cdots\times p(x_n)~.
 \]
-Questa definizione di $P_n$ corrisponde ad assumere che la sorgente generi un messaggio attraverso estrazioni indipendenti di simboli. In generale, però, questa assunzione non è molto plausibile. Per esempio, pensiamo ad un messaggio di testo in italiano dove i simboli sorgente sono le lettere dell'alfabeto compreso spazi e punteggiatura. Chiaramente, ci sono delle forti dipendenze fra una lettera del messaggio e le lettere che le stanno attorno e tali dipendenze non sono catturate dalla $P_n$ definita come sopra. D'altra parte, l'analisi matematica è molto facilitata dall'assunzione di indipendenza. Nel seguito, assumeremo quindi l'indipendenza dei simboli sorgente, tenendo però in mente che codici sorgente più realistici e sofisticati sono ottenuti senza questa assunzione.
+Esta definición de $P_n$ corresponde a asumir que la fuente genera un mensaje a través de extracciones indipendendientes de símbolos. En generale, sin embargo, esta asunción no es muy plausibile. Por ejemplo, pensemos en un mensaje de texto en castellano donde los símbolos fuente son las letras del alfabeto incluyendo espacios y puntuación. Chiaramente, ci sono delle forti dipendenze fra una lettera del messaggio e le lettere che le stanno attorno e tali dipendenze non sono catturate dalla $P_n$ definita come sopra. D'altra parte, l'analisi matematica è molto facilitata dall'assunzione di indipendenza. Nel seguito, assumeremo quindi l'indipendenza dei simboli sorgente, tenendo però in mente che codici sorgente più realistici e sofisticati sono ottenuti senza questa assunzione.
 
 D'ora in poi identifichiamo un simbolo emesso dalla sorgente tramite la variabile casuale $X : \scX\to\R$.
 % Si noti che la scelta dei reali $a$ sui quali la variabile casuale $X$ mappa i simboli sorgente non è importante.
