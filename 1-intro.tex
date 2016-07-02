@@ -3,7 +3,7 @@
 \documentclass[11pt]{article}
 
 \usepackage{fullpage}
-\usepackage[italian]{babel}
+\usepackage[spanish]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -84,7 +84,7 @@
 \begin{center}
 \fbox{
 \begin{minipage}{0.9\textwidth}
-\textbf{(F1X) Teoria dell'Informazione e della Trasmissione}
+\textbf{Teoría de la Información y de la Transmisión}
 \begin{center}
 \textbf{\Large Introducción}
 \end{center}
@@ -102,9 +102,10 @@ La teoría de la información está en la base de importantes sectores de la inf
 \item La de Claude Shannon (USA, 1916--2001) formulada en el 1948 y basada en la teoría de la probabilidad.
 \item La de Andrey Kolmogorov (URSS, 1903--1987) formulada en el 1965 y basada en la teoría de la computación. La misma teoría fue propuesta independientemente también por Gregory Chaitin (USA, 1947--\ ) y Ray Solomonoff (USA, 1926--2009), 
 \end{enumerate}
-En un cierto sentido, la teoría de Kolmogorov es más astracta que la de Shannon, que ---por el contrario--- tiene una mayor relevancia aplicativa.
+En cierto sentido, la teoría de Kolmogorov es más astracta que la de Shannon, que ---por el contrario--- tiene una mayor relevancia aplicativa.
 
-La teoria dell'informazione di Shannon è stata formulata nel lavoro ``A Mathematical Theory of Communication'', pubblicato dai Bell Labs nel 1948. Il problema che la teoria di Shannon affronta è quello di trasmettere informazione attraverso un canale affetto da rumore.
+
+La teoría de la información de Shannon fue formulada en su artículo ``A Mathematical Theory of Communication'', publicado por Bell Labs en el 1948. El problema que la teoría de Shannon afronta es el de transmitir información a través de un canal afectado por el ruido.
 
 \begin{figure}[h]
 \begin{center}
@@ -112,19 +113,19 @@ La teoria dell'informazione di Shannon è stata formulata nel lavoro ``A Mathema
 \end{center}
 \caption{
 \label{fig:canale}
-Modello di canale con rumore.
+Modelo de un canal con ruido.
 }
 \end{figure}
 
-Più precisamente, si vuole codificare i messaggi in modo da massimizzare l'informazione trasmessa ad ogni utilizzo del canale, minimizzando simultaneamente gli errori di trasmissione dovuti alla presenza di rumore. Il problema è che l'informazione non è distribuita in modo uniforme nel messaggio. Di conseguenza è difficile controllare gli errori di trasmissione. La metodologia ideata da Shannon consiste nel separare il problema in due sottoproblemi da affrontare separatamente: prima codifico in modo da concentrare l'informazione eliminando la ridondanza nel messaggio, poi ricodifico al fine di minimizzare gli errori di trasmissione.
+De manera más precisa, se busca codificar los mensajes de forma que se maximice la información transmitida en cada uso del canal, minimizando simultáneamente los errores de transmisión debidos a la presencia de ruido. El problema es que la información no está distribuida de manera uniforme en el mensaje. En consecuencia, es difícil comprobar los errores de transmisión. La metodología ideada por Shannon consiste en separar el problema en dos subproblemas que pueden afrontarse separadamente: primero codifico de manera que concentre la información eliminando la redundancia del mensaje, después, recodifico con el fin de maximizar los errores de transmisión.
 
-In pratica, bisogna quindi sviluppare due codifiche separate.
+En la práctica, nos hace falta entonces desarrollar dos codificaciones separadas:
 \begin{enumerate}
-\item \textbf{Source Coding} (I teorema di Shannon). Codice per rappresentare il messaggio in modo da massimizzare la compressione (per esempio, \texttt{ZIP}).
-\item \textbf{Channel Coding} (II teorema di Shannon). Codice per rappresentare il messaggio in modo da minimizzare gli errori di trasmissione.
+\item \textbf{Source Coding} (I teorema de Shannon). Código para representar el mensaje de forma que maximice la compresión (por ejemplo, \texttt{ZIP}).
+\item \textbf{Channel Coding} (II teorema de Shannon). Código para representar el mensaje de forma que minimice los errores de trasmisión.
 \end{enumerate}
-La codifica sorgente (source coding) elimina la maggior parte della ridondanza nel messaggio, concentrando l'informazione. La codifica di canale (channel coding) reintroduce ridondanza in modo controllato al fine di contrastare la distorsione prodotta dal rumore.
+La codificación fuente (source coding) elimina la mayor parte de la redundancia del mensaje, concentrando la información. La codificación del canal (channel coding) reintroduce redundancia de manera controlada para contrarrestar la distorsión producida por el ruido.
 
-Il primo e secondo teorema di Shannon vengono poi combinati per dimostrare il teorema di codifica congiunta sorgente-canale. Questo teorema dimostra che la codifica a due stadi, dove prima comprimiamo la sorgente e poi creiamo un codice canale per trasmettere i simboli compressi, è ottima. Questo non è scontato, infatti il codice sorgente ignora il canale, mentre il codice canale ignora la sorgente. Il teorema invece dimostra che non c'è modo di avere una codifica più efficiente anche considerando simultaneamente sorgente e canale.
+El primer y el segundo teorema de Shannon vienen entonces combinados para demostrar el teorema de codificación conjunta fuente-canal. Este teorema demuestra que la codificación en dos pasos, donde primero comprimimos la fuente y después creamos un código canal para transmitir los símbolos comprimidos, es óptima. Esto no es trivial, de hecho, el código fuente ignora al canal, mientras el código canal ignora la fuente. El teorema, sin embargo, demuestra que no existe forma de tener una codificación más eficiente incluso considerando simultáneamente fuente y canal.
 
 \end{document}
