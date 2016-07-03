@@ -130,24 +130,24 @@ Nótese que, en realidad, la cantidad interesante aquí es la distribución de p
 \[
     P_n(x_1,\dots,x_n) = p(x_1) \times\cdots\times p(x_n)~.
 \]
-Esta definición de $P_n$ corresponde a asumir que la fuente genera un mensaje a través de extracciones indipendendientes de símbolos. En generale, sin embargo, esta asunción no es muy plausibile. Por ejemplo, pensemos en un mensaje de texto en castellano donde los símbolos fuente son las letras del alfabeto incluyendo espacios y puntuación. Chiaramente, ci sono delle forti dipendenze fra una lettera del messaggio e le lettere che le stanno attorno e tali dipendenze non sono catturate dalla $P_n$ definita come sopra. D'altra parte, l'analisi matematica è molto facilitata dall'assunzione di indipendenza. Nel seguito, assumeremo quindi l'indipendenza dei simboli sorgente, tenendo però in mente che codici sorgente più realistici e sofisticati sono ottenuti senza questa assunzione.
+Esta definición de $P_n$ corresponde a asumir que la fuente genera un mensaje a través de extracciones indipendendientes de símbolos. En generale, sin embargo, esta asunción no es muy plausibile. Por ejemplo, pensemos en un mensaje de texto en castellano donde los símbolos fuente son las letras del alfabeto incluyendo espacios y punto. Claramente, hay fuertes dependencias entre una letra del mensaje y las letras que están alrededor y tales dependencias no son capturadas por la $P_n$ definida como antes. Por otro lado, el análisis matematico se ve muy facilitado por la asunción de independencia. En lo que sigue, asumiremos entonces la independencia de los símbolos fuente, teniendo sin embargo en mente que códigos fuente más realistas y sofisticados pueden obtenerse sin esta asunción.
 
-D'ora in poi identifichiamo un simbolo emesso dalla sorgente tramite la variabile casuale $X : \scX\to\R$.
+De ahora en adelante identificamos un símbolo emitido desde la fuente mediante la variable aleatoria $X : \scX\to\R$.
 % Si noti che la scelta dei reali $a$ sui quali la variabile casuale $X$ mappa i simboli sorgente non è importante.
-Fissato $D$ (base del codice) indichiamo con $\scD$ l'insieme $\{0,\dots,D-1\}$ dei simboli di codice con base $D$. Quindi una funzione di codifica, o codice, è una funzione del tipo $c : \scX\to\scD^+$.
+Fijado $D$ (base del código) indicamos con $\scD$ el conjunto $\{0,\dots,D-1\}$ de los símbolos de código con base $D$. Así, una función de codificación, o código, es una función del tipo $c : \scX\to\scD^+$.
 
-Siamo pronti per definire formalmente il problema della codifica sorgente: dato un modello di sorgente $\langle\scX,p\rangle$ e una base $D > 1$ trovare un codice $c : \scX\to\scD^+$ tale che il valore atteso
+Estamos preparados para definir formalmente el problema de la codificación fuente: dado un modelo de fuente $\langle\scX,p\rangle$ y una base $D > 1$, encontrar un código $c : \scX\to\scD^+$ tal que el valore medio
 \begin{equation}
 \label{eq:source-coding}
     \E\bigl[\ell_c\bigr] = \sum_{x\in\scX} \ell_c(x)\,p(x)
 \end{equation}
-della lunghezza di parola di codice sia minimo.
+de la longitud de la palabra de código sea mínimo.
 
-Formulato in questi termini, il problema della codifica sorgente si presta ad una soluzione banale e inutile. Infatti è ovvio che il codice $c : \scX\to\scD^+$ tale che $c(x)=0$ per ogni $x\in\scX$ minimizza $\E\bigl[\ell_c\bigr]$ per ogni modello di sorgente. Quindi, bisogna imporre delle limitazioni sulla classe di codici che vogliamo utilizzare per risolvere~(\ref{eq:source-coding}).
+Formulado en estos términos, el problema de la codificación fuente se presta a una solución banal e inútil. Es obvio que el código $c : \scX\to\scD^+$ tal que $c(x)=0$ para cada $x\in\scX$ minimiza $\E\bigl[\ell_c\bigr]$ para cada modelo de fuente. Por tanto, hace falta imponer limitaciones sobre la clase de códigos que queremos utilizar para resolver~(\ref{eq:source-coding}).
 
 Una prima limitazione è la seguente. Un codice $c : \scX\to\scD^+$ è \textbf{non singolare} se a simboli sorgente distinti corrispondono parole di codice distinte. Formalmente, per ogni $x,x'\in\scX$ tale che $x \neq x'$ vale $c(x) \neq c(x')$. In altre parole, la non singolarità del codice è equivalente all'iniettività della funzione di codifica. Questa è chiaramente una proprietà minimale per un codice utilizzabile in pratica.
 
-Ora introduciamo un concetto naturale: quello di \textbf{estensione di un codice}. L'estensione serve a definire in modo semplice la parola di codice associata ad un messaggio di una data lunghezza, ovvero ad una sequenza di simboli sorgente. Dato un codice $c : \scX\to\scD^+$, la sua estensione è la funzione $C : \scX^+\to\scD^+$ definita come
+Ora introduciamo un concetto naturale: quello di \textbf{estensione di un codice}. L'estensione serve a definire in modo semplice la parola di codice associata ad un messaggio di una data lunghezza, ovvero ad una sequenza di simboli sorgente. Dato un código $c : \scX\to\scD^+$, la sua estensione è la funzione $C : \scX^+\to\scD^+$ definita come
 $
     C(x_1,\dots,x_n) = c(x_1) \cdots c(x_n)
 $, dove $c(x_1) \cdots c(x_n)$ indica la sequenza ottenuta giustapponendo le parole di codice $c(x_1),\dots,c(x_n)$.
