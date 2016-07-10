@@ -98,7 +98,7 @@ Licencia: Creative Commons BY-SA-NC \hfill versión \today
 
 \bigskip
 
-Los mensajes a transmitir son generados desde una entidad abstracta llamada fuente. Sea $\scX$ el conjunto finito de símbolos que componen los mensajes generados por la fuente. Un mensaje $\bx = (x_1,\dots,x_n) \in \scX^n$ de longitud $n$ es una secuencia de $n$ símbolos fuente. Una función de codificación leva símbolos fuente a palabras de código. Una palabra de código es una secuencia de números del conjunto $\{0,\dots,D-1\}$ de los símbolos de código, donde $D > 1$ es la base del código. Por ejemplo, con $D=2$ obtenemos los códigos binarios. En este sentido, podemos representar una función de codificación por un código fuente con
+Los mensajes a transmitir son generados desde una entidad abstracta llamada fuente. Sea $\scX$ el conjunto finito de símbolos que componen los mensajes generados por la fuente. Un mensaje $\bx = (x_1,\dots,x_n) \in \scX^n$ de longitud $n$ es una secuencia de $n$ símbolos fuente. Una función de codificación lleva símbolos fuente a palabras de código. Una palabra de código es una secuencia de números del conjunto $\{0,\dots,D-1\}$ de los símbolos de código, donde $D > 1$ es la base del código. Por ejemplo, con $D=2$ obtenemos los códigos binarios. En este sentido, podemos representar una función de codificación por un código fuente con
 
 \[
     c : \scX \to \{0,\dots,D-1\}^+
@@ -117,26 +117,26 @@ Dado $\scX = \{\heartsuit,\diamondsuit,\clubsuit,\spadesuit\}$, un ejemplo de c�
 \]
 \end{example}
 %
-Dado que el objetivo de un código fuente es maximizar la compresión, estamos interesados en medir la cantidad $\ell_c(x)$ definida como la longitud de la palabra de código $c(x)$ para el símbolo $x\in\scX$. En el ejemplo precedente, $\ell_c(\diamondsuit) = 3$.
+Dado que el objetivo de un código fuente es maximizar la compresión, estamos interesados en medir la cantidad $\ell_c(x)$, definida como la longitud de la palabra de código $c(x)$ para el símbolo $x\in\scX$. En el ejemplo precedente, $\ell_c(\diamondsuit) = 3$.
 %Definiamo anche la lunghezza totale della codifica di $\bx = (x_1,\dots,x_n) \in \scX^n$ come
 %\[
 %    L_c(\bx) = \sum_{i=1}^n \ell_c(x_i)~.
 %\]
 El objetivo de un código fuente es el de minimizar la longitud media de la palabra de código utilizada para codificar los símbolos fuente.
 
-La intución en la base de la construcción de códigos fuente es la misma del alfabeto Morse: utilizar palabras de código cortas para los símbolos que son generados frecuentemente por la fuente. Para poder analizar de modo riguroso debemos crear un modelo formal de la fuente. La propuesta de Shannon es la de definir una distribución de probabilidad $p$ fijada sobre símbolos fuente y entonces asumir que $p(x)$ represente la probabilidad de que la fuente genere el símbolo $x\in\scX$. Un \textbf{modelo de fuente} está entonces definido por la pareja $\langle\scX,p\rangle$.
+La intución en la base de la construcción de códigos fuente es la misma del alfabeto Morse: utilizar palabras de código cortas para los símbolos que son generados frecuentemente por la fuente. Para poder analizarla de modo riguroso debemos crear un modelo formal de la fuente. La propuesta de Shannon es definir una distribución de probabilidad $p$ fija sobre los símbolos fuente y entonces asumir que $p(x)$ representa la probabilidad de que la fuente genere el símbolo $x\in\scX$. Así, un \textbf{modelo de fuente} está definido por la pareja $\langle\scX,p\rangle$.
 
 Nótese que, en realidad, la cantidad interesante aquí es la distribución de probabilidad sobre los mensajes $\bx$ más que sobre los símbolos $x$, dado que los mensajes son los objetos que queremos transmitir. Dada una distribución $p$ sobre símbolos $\scX$ definimos entonces una distribución $P_n$ sobre los mensajes $\scX^n$ de longitud $n$ como
 \[
     P_n(x_1,\dots,x_n) = p(x_1) \times\cdots\times p(x_n)~.
 \]
-Esta definición de $P_n$ corresponde a asumir que la fuente genera un mensaje a través de extracciones indipendendientes de símbolos. En generale, sin embargo, esta asunción no es muy plausibile. Por ejemplo, pensemos en un mensaje de texto en castellano donde los símbolos fuente son las letras del alfabeto incluyendo espacios y punto. Claramente, hay fuertes dependencias entre una letra del mensaje y las letras que están alrededor y tales dependencias no son capturadas por la $P_n$ definida como antes. Por otro lado, el análisis matematico se ve muy facilitado por la asunción de independencia. En lo que sigue, asumiremos entonces la independencia de los símbolos fuente, teniendo sin embargo en mente que códigos fuente más realistas y sofisticados pueden obtenerse sin esta asunción.
+Esta definición de $P_n$ corresponde a asumir que la fuente genera un mensaje a través de extracciones indipendendientes de símbolos. En generale, sin embargo, esta asunción no es muy plausible. Por ejemplo, pensemos en un mensaje de texto en castellano, donde los símbolos fuente son las letras del alfabeto incluyendo espacios y punto. Claramente, hay fuertes dependencias entre una letra del mensaje y las letras que están alrededor y tales dependencias no son capturadas por la $P_n$ definida como antes. Por otro lado, el análisis matematico se ve muy facilitado por la asunción de independencia. En lo que sigue, asumiremos entonces la independencia de los símbolos fuente, teniendo sin embargo en mente que códigos fuente más realistas y sofisticados pueden obtenerse sin esta asunción.
 
-De ahora en adelante identificamos un símbolo emitido desde la fuente mediante la variable aleatoria $X : \scX\to\R$.
+De ahora en adelante identificaremos un símbolo emitido desde la fuente mediante la variable aleatoria $X : \scX\to\R$.
 % Si noti che la scelta dei reali $a$ sui quali la variabile casuale $X$ mappa i simboli sorgente non è importante.
 Fijado $D$ (base del código) indicamos con $\scD$ el conjunto $\{0,\dots,D-1\}$ de los símbolos de código con base $D$. Así, una función de codificación, o código, es una función del tipo $c : \scX\to\scD^+$.
 
-Estamos preparados para definir formalmente el problema de la codificación fuente: dado un modelo de fuente $\langle\scX,p\rangle$ y una base $D > 1$, encontrar un código $c : \scX\to\scD^+$ tal que el valore medio
+Estamos preparados para definir formalmente el problema de la codificación fuente: dado un modelo de fuente $\langle\scX,p\rangle$ y una base $D > 1$, encontrar un código $c : \scX\to\scD^+$ tal que el valor medio
 \begin{equation}
 \label{eq:source-coding}
     \E\bigl[\ell_c\bigr] = \sum_{x\in\scX} \ell_c(x)\,p(x)
@@ -164,7 +164,7 @@ La propiedad de no singularidad no es suficientemente fuerte para garantizar que
 \[
     C(\diamondsuit) = C(\clubsuit,\heartsuit) = C(\heartsuit,\spadesuit) = 010~.
 \]
-Por tanto, mientras el código $c$ del Ejemplo~\ref{ex:1} es no singular su extensión $C$ no lo es.
+Por tanto, mientras el código $c$ del Ejemplo~\ref{ex:1} es no singular, su extensión $C$ no lo es.
 
 Motivados por este ejemplo, introducimos la noción de código \textbf{unívocamente decodificable}, es decir, de código cuya extensión es no singular. Formalmente, $c$ es unívocamente decodificable si $C$ es una función inyectiva. En la práctica, esta propiedad permite decodificar los mensajes. De hecho, si $c$ es unívocamente decodificable entonces para cada $\by\in\scD^+$ encontraré como mucho un único mensaje $\bx\in\scX^+$ (la decodificación de $\by$) tal que $C(\bx) = \by$. La verficación para determinar si un código dado $c$ es unívocamente decodificable la realiza el algoritmo de Sardinas-Patterson en tiempo $\mathcal{O}(mL)$, donde $m$ es el número de las palabras de código y $L$ es la suma de sus longitudes.
 
