@@ -145,27 +145,27 @@ de la longitud de la palabra de código sea mínimo.
 
 Formulado en estos términos, el problema de la codificación fuente se presta a una solución banal e inútil. Es obvio que el código $c : \scX\to\scD^+$ tal que $c(x)=0$ para cada $x\in\scX$ minimiza $\E\bigl[\ell_c\bigr]$ para cada modelo de fuente. Por tanto, hace falta imponer limitaciones sobre la clase de códigos que queremos utilizar para resolver~(\ref{eq:source-coding}).
 
-Una prima limitazione è la seguente. Un codice $c : \scX\to\scD^+$ è \textbf{non singolare} se a simboli sorgente distinti corrispondono parole di codice distinte. Formalmente, per ogni $x,x'\in\scX$ tale che $x \neq x'$ vale $c(x) \neq c(x')$. In altre parole, la non singolarità del codice è equivalente all'iniettività della funzione di codifica. Questa è chiaramente una proprietà minimale per un codice utilizzabile in pratica.
+Una primera limitación es la siguiente. Un código $c : \scX\to\scD^+$ es \textbf{no singular} si a símbolos fuente distintos les corresponden palabras de código distintas. Formalmente, para cada $x,x'\in\scX$ tal que $x \neq x'$ se cumple $c(x) \neq c(x')$. Dicho de otra forma, la no singularidad del código es equivalente a la inyectividad de la función de codificación. Esta es claramente una propiedad necesaria para un código utilizable en la práctica.
 
-Ora introduciamo un concetto naturale: quello di \textbf{estensione di un codice}. L'estensione serve a definire in modo semplice la parola di codice associata ad un messaggio di una data lunghezza, ovvero ad una sequenza di simboli sorgente. Dato un código $c : \scX\to\scD^+$, la sua estensione è la funzione $C : \scX^+\to\scD^+$ definita come
+Ahora introducimos un concepto natural: el de \textbf{extensión de un código}. La extensión se usa para definir de forma simple la palabra de código asociada a un mensaje de longitud dada, es decir, a una secuencia de símbolos fuente. Dado un código $c : \scX\to\scD^+$, su extensión es la función $C : \scX^+\to\scD^+$ definida come
 $
     C(x_1,\dots,x_n) = c(x_1) \cdots c(x_n)
-$, dove $c(x_1) \cdots c(x_n)$ indica la sequenza ottenuta giustapponendo le parole di codice $c(x_1),\dots,c(x_n)$.
+$, donde $c(x_1) \cdots c(x_n)$ indica la secuencia obtenida yuxtaponiendo las palabras de código $c(x_1),\dots,c(x_n)$.
 %
 \begin{example}
 \label{ex:2}
-L'estensione $C$ del codice definito nell'Esempio~\ref{ex:1} è tale che
+La extensión $C$ del código definido en el Ejemplo~\ref{ex:1} es tal que
 \[
     C(\heartsuit,\spadesuit,\clubsuit) = c(\heartsuit)c(\spadesuit)c(\clubsuit) = 01001~.
 \]
 \end{example}
 %
-La proprietà di non singolarità non è abbastanza forte per garantire che essa venga ereditata anche dall'estensione di un codice. Infatti, l'estensione nell'Esempio~\ref{ex:2} è tale che
+La propiedad de no singularidad no es suficientemente fuerte para garantizar que esta sea heredada también por la extensión de un código. De hecho, la extensión en el Ejemplo~\ref{ex:2} es tal que
 \[
     C(\diamondsuit) = C(\clubsuit,\heartsuit) = C(\heartsuit,\spadesuit) = 010~.
 \]
-Quindi mentre il codice $c$ dell'Esempio~\ref{ex:1} è non singolare la sua estensione $C$ non lo è.
+Por tanto, mientras el código $c$ del Ejemplo~\ref{ex:1} es no singular su extensión $C$ no lo es.
 
-Motivati da questo esempio, introduciamo la nozione di codice \textbf{univocamente decodificabile}, ovvero di codice la cui estensione è non singolare. Formalmente, $c$ è univocamente decodificabile se $C$ è una funzione iniettiva. In pratica questa proprietà permette di decodificare i messaggi. Infatti, se $c$ è univocamente decodificabile allora per ogni $\by\in\scD^+$ trovo al più un unico messaggio $\bx\in\scX^+$ (la decodifica di $\by$) tale che $C(\bx) = \by$. La verifica per determinare se un dato codice $c$ sia univocamente decodificabile è realizzata dall'algoritmo di Sardinas-Patterson in tempo $\mathcal{O}(mL)$, dove $m$ è il numero delle parole di codice e $L$ è la somma delle loro lunghezze.
+Motivados por este ejemplo, introducimos la noción de código \textbf{unívocamente decodificable}, es decir, de código cuya extensión es no singular. Formalmente, $c$ es unívocamente decodificable si $C$ es una función inyectiva. En la práctica, esta propiedad permite decodificar los mensajes. De hecho, si $c$ es unívocamente decodificable entonces para cada $\by\in\scD^+$ encontraré como mucho un único mensaje $\bx\in\scX^+$ (la decodificación de $\by$) tal que $C(\bx) = \by$. La verficación para determinar si un código dado $c$ es unívocamente decodificable la realiza el algoritmo de Sardinas-Patterson en tiempo $\mathcal{O}(mL)$, donde $m$ es el número de las palabras de código y $L$ es la suma de sus longitudes.
 
 \end{document}
