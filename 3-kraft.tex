@@ -1,0 +1,211 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage[italian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defi}[theorem]{Definizione}
+\newtheorem{cor}[theorem]{Corollario}
+\newtheorem{example}[theorem]{Esempio}
+\newtheorem{fact}[theorem]{Fatto}
+
+\newenvironment{proof}{{\textsc{Dimostrazione.}\ }}{\hfill$\Box$\\[2mm]}
+
+\newcommand{\figscale}[2]{\includegraphics[scale=#2,clip=false]{#1}}
+
+\newlength{\parunit}
+\setlength{\parunit}{3mm}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\parunit}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+\newcommand{\ssep}{\\[1.5\parunit]}
+\newcommand{\msep}{\\[2.0\parunit]}
+
+\newcommand{\scO}{\mathcal{O}}
+\newcommand{\bg}{ \boldsymbol{g} }
+\newcommand{\bu}{ \boldsymbol{u} }
+\newcommand{\bv}{ \boldsymbol{v} }
+\newcommand{\bw}{ \boldsymbol{w} }
+\newcommand{\bx}{ \boldsymbol{x} }
+\newcommand{\by}{ \boldsymbol{y} }
+\newcommand{\bX}{ \boldsymbol{X} }
+\newcommand{\bY}{ \boldsymbol{Y} }
+\newcommand{\bz}{ \boldsymbol{z} }
+\newcommand{\be}{ \boldsymbol{e} }
+\newcommand{\bone}{ \boldsymbol{1} }
+\newcommand{\bzero}{ \boldsymbol{0} }
+\newcommand{\bphi}{ \boldsymbol{\phi} }
+\newcommand{\bxi}{ \boldsymbol{\xi} }
+\newcommand{\bsigma}{ \boldsymbol{\sigma} }
+\newcommand{\bbw}{\overline{\bw}}
+\newcommand{\scD}{\mathcal{D}}
+\newcommand{\scH}{\mathcal{H}}
+\newcommand{\scF}{\mathcal{F}}
+\newcommand{\scM}{\mathcal{M}}
+\newcommand{\scP}{\mathcal{P}}
+\newcommand{\scR}{\mathcal{R}}
+\newcommand{\scX}{\mathcal{X}}
+\newcommand{\scY}{\mathcal{Y}}
+\newcommand{\yhat}{\widehat{y}}
+\newcommand{\Yhat}{\widehat{Y}}
+\newcommand{\hhat}{\widehat{h}}
+\newcommand{\fhat}{\widehat{f}}
+\newcommand{\lmax}{\ell_{\textrm{max}}}
+\newcommand{\defeq}{\stackrel{\rm def}{=}}
+\newcommand{\ol}{\overline}
+\newcommand{\loss}{\ell}
+\newcommand{\er}{\mathrm{er}}
+\newcommand{\sgn}{\mathrm{sgn}}
+\renewcommand{\ss}{\subseteq}
+\newcommand{\bool}{\{0,1\}}
+\newcommand{\spin}{\{-1,+1\}}
+\newcommand{\norm}[1]{ \left\|{#1}\right\| }
+\newcommand{\theset}[2]{ \left\{ {#1} \,:\, {#2} \right\} }
+\newcommand{\field}[1]{\mathbb{#1}}
+\renewcommand{\Pr}{\field{P}}
+\newcommand{\R}{\field{R}}
+\newcommand{\E}{\field{E}}
+\newcommand{\Ind}[1]{\field{I}{\{{#1}\}}}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\dt}{\displaystyle}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\argmax}{\operatornamewithlimits{argmax}}
+
+
+\begin{document}
+
+\begin{center}
+\fbox{
+\begin{minipage}{0.9\textwidth}
+\textbf{(F1X) Teoria dell'Informazione e della Trasmissione}
+\begin{center}
+\textbf{\Large Codici istantanei e disuguaglianza di Kraft}
+\end{center}
+Docente: \textit{Nicolò Cesa-Bianchi} \hfill versione \today
+\end{minipage}
+}
+\end{center}
+
+\bigskip
+
+Riprendiamo il nostro obiettivo di questa prima fase: la ricerca di un codice sorgente ottimo. Ovvero, dato un modello di sorgente $\langle\scX,p\rangle$ vogliamo trovare il codice $c : \scX\to\scD^+$ tale che il valore atteso
+\begin{equation}
+\label{eq:obj}
+    \E\bigl[\ell_c\bigr] = \sum_{x\in\scX} \ell_c(x)\,p(x)
+\end{equation}
+della lunghezza di parola di codice sia minimo.
+
+Come abbiamo già osservato in precedenza, perché un qualunque codice $c$ sia utilizzabile in pratica deve essere possibile il processo di decodifica di messaggi. Ovvero, data una parola di codice $\by\in\scD^+$ deve essere possibile risalire al messaggio $\bx\in\scX^+$ tale che $C(\bx)=\by$. Per evitare di avere un codice inutilizzabile come soluzione ottima, ci siamo quindi ristretti ai codici univocamente decodificabili. Ovvero, i codici la cui estensione non è singolare. Purtoppo, anche i codici univocamente decodificabili possono presentare dei problemi dal punto di vista dell'utilizzo pratico, come si vede dall'esempio seguente.
+%
+\begin{example}
+\label{ex:ud}
+Dato $\scX = \{\heartsuit,\diamondsuit,\clubsuit,\spadesuit\}$, si consideri il seguente codice binario univocamente decodificabile
+\[
+    c(\heartsuit) = 10 \quad c(\diamondsuit) = 00 \quad c(\clubsuit) = 11 \quad c(\spadesuit) = 110~.
+\]
+Supponiamo ora di aver utilizzato l'estensione $C$ per codificare un messaggio $\bx\in\scX^+$ e di aver ottenuto la parola di codice $110\dots 0$. Durante il processo di decodifica, per capire se il primo simbolo del messaggio sorgente è $\clubsuit$ piuttosto che $\spadesuit$ dobbiamo verificare se il numero di zeri che segue $11$ sia pari o dispari. Infatti, se il numero di zeri è pari allora il messaggio dev'essere della forma $\clubsuit\diamondsuit\dots\diamondsuit$. Invece, se il numero di zeri è dispari, allora il messaggio dev'essere della forma $\spadesuit\diamondsuit\dots\diamondsuit$.
+\end{example}
+%
+L'esempio precedente mostra che un codice univocamente decodificabile può essere tale che per cominciare a decodificare il primo simbolo di un messaggio dobbiamo aspettare di leggere l'ultimo simbolo della sua codifica. Esaminando il codice, ci accorgiamo che il problema sta nel fatto che la parola di codice per $\clubsuit$ è un prefisso della parola di codice per $\spadesuit$. Se nessuna parola di codice fosse prefisso di un'altra, allora potremmo decodificare i simboli sorgente mano a mano che riceviamo i simboli di codice.
+
+Si noti che possiamo rimediare a questo problema riservando un simbolo di codice per separare le codifiche dei simboli sorgente in una parola di codice. Per esempio, il codice binario dell'Esempio~\ref{ex:ud} diventerebbe il seguente codice ternario
+\[
+    c(\heartsuit) = 102 \quad c(\diamondsuit) = 002 \quad c(\clubsuit) = 112 \quad c(\spadesuit) = 1102~.
+\]
+Però è evidente che questa soluzione compromette la compattezza del codice.
+
+Un codice $c : \scX \to \scD^+$ è detto \textbf{istantaneo} se nessuna parola di codice è prefisso di un'altra. Per esempio, il codice binario
+\[
+    c(\heartsuit) = 0 \quad c(\diamondsuit) = 10 \quad c(\clubsuit) = 110 \quad c(\spadesuit) = 111~.
+\]
+è istantaneo.
+
+Chiaramente, un codice istantaneo è non singolare. Mostriamo ora che i codici istantanei sono un sottoinsieme di quelli univocamente decodificabili.
+%
+\begin{fact}
+Se $c$ è istantaneo allora è anche univocamente decodificabile.
+\end{fact}
+%
+\begin{proof}
+Sia $c : \scX\to\scD^+$ un qualunque codice e sia $C$ la sua estensione. Senza perdita di generalità, possiamo assumere che $c$ sia non singolare. Infatti, se $c$ fosse singolare allora non sarebbe istantaneo. Dimostriamo che se $c$ non è univocamente decodificabile allora $c$ non può essere istantaneo. Se $c$ non è univocamente decodificabile esistono due messaggi $\bx,\bx'\in\scX^+$ distinti tali che $C(\bx) = C(\bx')$. Ci sono solo due modi in cui $\bx$ e $\bx'$ possono essere distinti: (1) un messaggio è prefisso dell'altro; (2) c'è almeno una posizione in cui i due messaggi differiscono. Per analizzare il primo caso, assumiamo per esempio che $\bx'$ sia un prefisso di $\bx$. Ma allora, dato che $C(\bx) = C(\bx')$ i restanti simboli di $\bx$ dovrebbero essere mappati da $c$ nella parola di codice vuota, il che non è possibile per la nostra definizione di codice.\footnote{Anche se estendessimo la definizione di codice ammettendo codici che mappano simboli sorgente nella parola vuota, tali codici non sarebbero istantanei, in quanto la parola vuota è prefisso di ogni altra parola di codice.} Rimane quindi da analizzare il secondo caso: c'è una posizione $i$ in cui $\bx$ e $\bx'$ differiscono per la prima volta, ovvero $x_i \neq x'_i$ e $x_j = x'_j$ per ogni $j = 1,\dots,i-1$. Quindi abbiamo $c(x_j)=c(x'_j)$ per $j=1,\dots,i-1$ e $c(x_i) \neq c(x'_i)$ dato che $c$ è non singolare. Ma allora l'unico modo perché $C(\bx) = C(\bx')$ è che $c(x_i)$ sia prefisso di $c(x'_i)$ o viceversa, il che contraddice l'ipotesi che $c$ sia istantaneo.
+\end{proof}
+%
+Abbiamo così stabilito una gerarchia fra le funzioni della forma $c:\scX\to\scD^+$. Ovvero,
+\[
+    \text{codici istantanei} \;\subset\; \text{codici univ.\ decodificabili} \;\subset\; \text{codici non singolari}
+\]
+dove le inclusioni sono strette. Infatti gli esempi precedenti hanno mostrato che esistono codici non singolari che non sono univocamente decodificabili e codici univocamente decodificabili che non sono istantanei.
+
+I codici istantanei soddisfano un'importante proprietà strutturale che li rende riconoscibili anche soltanto in base alle sole lunghezze delle parole di codice.
+%
+\begin{lemma}[Disuguaglianza di Kraft]
+Dati $\scX = \{x_1,\dots,x_m\}$, $D > 1$ e $m$ interi $\ell_1,\dots,\ell_m > 0$, esiste un codice istantaneo $c : \scX \to \scD^+$ tale che $\ell_c(x_i) = \ell_i$ per $i=1,\dots,m$ se e solo se
+\[
+    \sum_{i=1}^m D^{-\ell_i} \le 1~.
+\]
+\end{lemma}
+%
+\begin{proof}
+Cominciamo a dimostrare che dato $c$ istantaneo, le lunghezze delle sue parole di codice obbediscono alla disuguaglianza di Kraft. Sia $\lmax$ la lunghezza massima delle parole di $c$,
+\[
+    \lmax = \max_{i=1,\dots,m} \ell_c(x_i)~.
+\]
+Si consideri l'albero $D$-ario completo di profondità $\lmax$. Possiamo posizionare ogni parola di codice di $c$ su un nodo dell'albero seguendo dalla radice il cammino corrispondente ai simboli della parola. Dato che il codice è istantaneo, nessuna parola apparterrà al sottoalbero avente come radice un'altra parola. Possiamo quindi partizionare le foglie dell'albero in sottoinsiemi disgiunti $A_1,\dots,A_m$, dove $A_i$ è il sottoinsieme di foglie associato alla parola $c(x_i)$ ---si veda la Figura~\ref{fig:kraft}.
+%
+\begin{figure}[h]
+\begin{center}
+\figscale{Images/kraft}{0.4}
+\end{center}
+\caption{
+\label{fig:kraft}
+Partizione delle foglie indotta dal codice istantaneo indicato dai nodi colorati (da Wikipedia). La dimostrazione della disuguaglianza di Kraft può utilizzare un qualsiasi albero binario completo di profondità maggiore o uguale a $\lmax$. Possiamo quindi sostituire l'albero della figura con un albero binario completo di profondità $\lmax = 3$.
+}
+\end{figure}
+
+Ora, il numero di foglie nel sottoalbero di una parola ad altezza $\ell_i$ è ovviamente $D^{\lmax-\ell_i}$. D'altra parte, il numero totale di foglie nell'albero è $D^{\lmax}$. Quindi,
+\[
+    \sum_{i=1}^m D^{\lmax-\ell_i} = \sum_{i=1}^m |A_i| \le D^{\lmax}~.
+\]
+Dividendo per $D^{\lmax}$ il membro sinistro e quello destro della formula otteniamo la disuguaglianza di Kraft.
+
+Per dimostrare l'altra implicazione assumiamo che $\ell_1,\dots,\ell_m > 0$ soddisfano la disuguaglianza di Kraft, e sia $\lmax = \max\{\ell_1,\dots,\ell_m\}$. Allora possiamo costruire un codice istantaneo $c : \{x_1,\dots,x_m\} \to \scD^+$ con lunghezze date, ovvero $\ell_c(x_i) = \ell_i$ per $i=1,\dots,m$. A questo scopo si consideri l'albero $D$-ario ordinato e completo di profondità $\lmax$. Al simbolo $x_1$ associamo la parola di codice $c(x_1)$ corrispondente al nodo dell'albero di altezza $\ell_1$ primo in ordine lessicografico (cioè più a sinistra). Ad ogni simbolo successivo $x_i$, associamo la parola di codice $c(x_i)$ corrispondente al primo nodo (sempre in ordine lessicografico) di altezza $\ell_i$ che né appartiene né include sottoalberi radicati su parole scelte in precedenza ---si veda nuovamente la Figura~\ref{fig:kraft}. Si noti che il codice così costruito è istantaneo, dato che nessuna parola comparirà nel sottoalbero radicato su un'altra parola. Dato che le lunghezze soddisfano la disuguaglianza di Kraft, il numero totale di foglie necessarie a creare il codice è
+\[
+    \sum_{i=1}^m D^{\lmax-\ell_i} \le D^{\lmax}
+\]
+ovvero non maggiore delle foglie disponibili nell'albero.
+\end{proof}
+Vediamo ora come costruire un buon codice istantaneo, ovvero un codice che tenda a minimizzare~(\ref{eq:obj}). Fissato $D > 1$ e un modello di sorgente $\langle X,p \rangle$, la disuguaglianza di Kraft ci dice che possiamo limitarci a trovare dei numeri positivi $\ell_1,\dots,\ell_m$ che la soddisfino. Infatti, trovati questi possiamo costruire automaticamente un codice istantaneo con quelle lunghezze. Quindi dobbiamo risolvere il problema
+\[
+    \left\{ \begin{array}{l}
+       {\dt \min_{\ell_1,\dots,\ell_m} \sum_{i=1}^m \ell_i\,p_i }
+    \\[2mm]
+        \text{tale che} {\dt \quad \sum_{i=1}^m D^{-\ell_i} \le 1 }
+    \end{array} \right.
+\]
+dove $p_i = p(x_i)$ per $i=1,\dots,m$.
+ 
+Possiamo ora osservare che, dato che $p_1+\cdots+p_m = 1$ (è una distribuzione di probabilità), possiamo porre $D^{-\ell_i} \le p_i$ in modo che
+\[
+    \sum_{i=1}^m D^{-\ell_i} \le \sum_{i=1}^m p_i = 1$
+\]
+soddisfando così la disuguaglianza di Kraft. Risolvendo per $\ell_i$ otteniamo la condizione
+\[
+    \ell_i \ge \log_D\frac{1}{p_i}~.
+\]
+Quindi, è sufficiente porre $\ell_i = \bigl\lceil \log_D\tfrac{1}{p_i} \bigr\rceil$ per avere degli interi che soddisfano la disuguaglianza di Kraft. Il codice istantaneo risultante è noto come \textbf{codice di Shannon}.
+
+\`E interessante studiare il caso particolare in cui i $p_i$ siano dei reciproci di potenze di $D$. Per esempio, quando $p_1 = \tfrac{1}{2}$, $p_2 = \tfrac{1}{4}$, $p_3 = \tfrac{1}{8}$, $p_4 = \tfrac{1}{8}$ per $D=2$ e $m=4$. In questi casi, la lunghezza della codice di Shannon può essere calcolata esattamente come
+\[
+    \sum_{i=1}^m \ell_i\,p_i = \sum_{i=1}^m p_i\log_D\frac{1}{p_i}~.
+\]
+Questa quantità, che è una proprietà della distribuzione $p_1,\dots,p_m$ soltanto, è nota come \textbf{entropia}. Le relazioni fra entropia e codifica ottima verrà approfondita nelle prossime lezioni.
+
+\end{document}
