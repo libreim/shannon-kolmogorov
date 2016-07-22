@@ -116,49 +116,49 @@ Supongamos ahora que hubiéramos utilizado la extensión $C$ para codificar un m
 %
 El ejemplo precedente muestra que un código unívocamente decodificable puede ser tal que, para comenzar a decodificar el primer símbolo de un mensaje, debamos esperar a leer el último símbolo de su codificación. Examinando el código, nos damos cuenta de que el problema está en el hecho de que la palabra de código para $\clubsuit$ es un prefijo de la palabra de código para $\spadesuit$. Si ninguna palabra de código fuese prefijo de otra, entonces podríamos decodificar los símbolos fuente conforme recibiésemos los símbolos de código.
 
-Si noti che possiamo rimediare a questo problema riservando un simbolo di codice per separare le codifiche dei simboli sorgente in una parola di codice. Per esempio, il codice binario dell'Esempio~\ref{ex:ud} diventerebbe il seguente codice ternario
+Nótese que podemos remediar este problema reservando un símbolo de código para separar las codificaciones de los símbolos fuente en una palabra de código. Por ejemplo, el código binario del Ejemplo~\ref{ex:ud} se convertiría en el siguiente código ternario
 \[
     c(\heartsuit) = 102 \quad c(\diamondsuit) = 002 \quad c(\clubsuit) = 112 \quad c(\spadesuit) = 1102~.
 \]
-Però è evidente che questa soluzione compromette la compattezza del codice.
+Sin embargo, es evidente que esta solución compromete la compacidad del código.
 
-Un codice $c : \scX \to \scD^+$ è detto \textbf{istantaneo} se nessuna parola di codice è prefisso di un'altra. Per esempio, il codice binario
+Un código $c : \scX \to \scD^+$ se llama \textbf{instantáneo} si ninguna palabra de código es prefijo de ninguna otra. Por ejemplo, el código binario
 \[
     c(\heartsuit) = 0 \quad c(\diamondsuit) = 10 \quad c(\clubsuit) = 110 \quad c(\spadesuit) = 111~.
 \]
-è istantaneo.
+es instantáneo.
 
-Chiaramente, un codice istantaneo è non singolare. Mostriamo ora che i codici istantanei sono un sottoinsieme di quelli univocamente decodificabili.
+Claramente, un código instantáneo es no singular. Mostramos ahora que los códigos instantáneos son un subconjunto de aquellos unívocamente decodificables.
 %
 \begin{fact}
-Se $c$ è istantaneo allora è anche univocamente decodificabile.
+si $c$ es instantáneo entonces es también unívocamente decodificable.
 \end{fact}
 %
 \begin{proof}
-Sia $c : \scX\to\scD^+$ un qualunque codice e sia $C$ la sua estensione. Senza perdita di generalità, possiamo assumere che $c$ sia non singolare. Infatti, se $c$ fosse singolare allora non sarebbe istantaneo. Dimostriamo che se $c$ non è univocamente decodificabile allora $c$ non può essere istantaneo. Se $c$ non è univocamente decodificabile esistono due messaggi $\bx,\bx'\in\scX^+$ distinti tali che $C(\bx) = C(\bx')$. Ci sono solo due modi in cui $\bx$ e $\bx'$ possono essere distinti: (1) un messaggio è prefisso dell'altro; (2) c'è almeno una posizione in cui i due messaggi differiscono. Per analizzare il primo caso, assumiamo per esempio che $\bx'$ sia un prefisso di $\bx$. Ma allora, dato che $C(\bx) = C(\bx')$ i restanti simboli di $\bx$ dovrebbero essere mappati da $c$ nella parola di codice vuota, il che non è possibile per la nostra definizione di codice.\footnote{Anche se estendessimo la definizione di codice ammettendo codici che mappano simboli sorgente nella parola vuota, tali codici non sarebbero istantanei, in quanto la parola vuota è prefisso di ogni altra parola di codice.} Rimane quindi da analizzare il secondo caso: c'è una posizione $i$ in cui $\bx$ e $\bx'$ differiscono per la prima volta, ovvero $x_i \neq x'_i$ e $x_j = x'_j$ per ogni $j = 1,\dots,i-1$. Quindi abbiamo $c(x_j)=c(x'_j)$ per $j=1,\dots,i-1$ e $c(x_i) \neq c(x'_i)$ dato che $c$ è non singolare. Ma allora l'unico modo perché $C(\bx) = C(\bx')$ è che $c(x_i)$ sia prefisso di $c(x'_i)$ o viceversa, il che contraddice l'ipotesi che $c$ sia istantaneo.
+Sea $c : \scX\to\scD^+$ un código cualquiera y sea $C$ su extensión. Sin pérdida de generalidad, podemos asumir que $c$ sea no singular. De hecho, si $c$ fuese singular, entonces no sería instantáneo. Demostramos que si $c$ no es unívocamente decodificable, entonces $c$ no puede ser instantáneo. Si $c$ no es unívocamente decodificable existen dos mensajes $\bx,\bx'\in\scX^+$ distintos tales que $C(\bx) = C(\bx')$. Solo hay dos formas en las que $\bx$ y $\bx'$ pueden ser distintos: (1) un mensaje es prefijo del otro; (2) hay al menos una posición en la que los dos mensajes difieren. Para analizar el primer caso, asumimos por ejemplo que $\bx'$ es un prefijo de $\bx$. Pero entonces, dado que $C(\bx) = C(\bx')$, los restantes símbolos de $\bx$ deberían ser mapados desde $c$ en la palabra de código vacía, lo que no es posible por nuestra definición de código.\footnote{Incluso si entendiésemos la definición de código admitiendo códigos que mapan símbolos fuente en la palabra vacía, tales códigos no serían instantáneos, en cuanto la palabra vacía sería prefijo de cualquier otra palabra de código.} Queda entonces analizar el segundo caso: hay una posición $i$ en la cual $\bx$ y $\bx'$ difieren por primera vez, es decir $x_i \neq x'_i$ y $x_j = x'_j$ para cada $j = 1,\dots,i-1$. Entonces tenemos $c(x_j)=c(x'_j)$ para $j=1,\dots,i-1$ y $c(x_i) \neq c(x'_i)$ dado que $c$ es no singular. Pero entonces la única forma de que $C(\bx) = C(\bx')$ es que $c(x_i)$ sea prefijo de $c(x'_i)$ o viceversa, lo que contradice la hipótesis de que $c$ es instantáneo.
 \end{proof}
 %
-Abbiamo così stabilito una gerarchia fra le funzioni della forma $c:\scX\to\scD^+$. Ovvero,
+Hemos establecido así una jerarquía entre las funciones de la forma $c:\scX\to\scD^+$. Es decir,
 \[
-    \text{codici istantanei} \;\subset\; \text{codici univ.\ decodificabili} \;\subset\; \text{codici non singolari}
+    \text{códigos instantáneos} \;\subset\; \text{códigos univ.\ decodificables} \;\subset\; \text{códigos no singulares}
 \]
-dove le inclusioni sono strette. Infatti gli esempi precedenti hanno mostrato che esistono codici non singolari che non sono univocamente decodificabili e codici univocamente decodificabili che non sono istantanei.
+donde las inclusiones son estrictas. De hecho, los ejemplos precedentes han mostrado que existen códigos no singulares que no son unívocamente decodificables y códigos unívocamente decodificables que no son instantáneos.
 
-I codici istantanei soddisfano un'importante proprietà strutturale che li rende riconoscibili anche soltanto in base alle sole lunghezze delle parole di codice.
+Los códigos instantáneos satisfacen una importante propiedad estructural que los mantiene reconocibles también sólo en base a las longitudes de las palabras de código.
 %
-\begin{lemma}[Disuguaglianza di Kraft]
-Dati $\scX = \{x_1,\dots,x_m\}$, $D > 1$ e $m$ interi $\ell_1,\dots,\ell_m > 0$, esiste un codice istantaneo $c : \scX \to \scD^+$ tale che $\ell_c(x_i) = \ell_i$ per $i=1,\dots,m$ se e solo se
+\begin{lemma}[Desigualdad de Kraft]
+Dados $\scX = \{x_1,\dots,x_m\}$, $D > 1$ y $m$ enteros $\ell_1,\dots,\ell_m > 0$, existe un código instantáneo $c : \scX \to \scD^+$ tal que $\ell_c(x_i) = \ell_i$ para $i=1,\dots,m$ si y sólo si
 \[
     \sum_{i=1}^m D^{-\ell_i} \le 1~.
 \]
 \end{lemma}
 %
 \begin{proof}
-Cominciamo a dimostrare che dato $c$ istantaneo, le lunghezze delle sue parole di codice obbediscono alla disuguaglianza di Kraft. Sia $\lmax$ la lunghezza massima delle parole di $c$,
+Comenzamos a demostrar que dado $c$ instantáneo, las longitudes de sus palabras de código obedecen la desigualdad de Kraft. Ses $\lmax$ la longitud máxima de las palabras de $c$,
 \[
     \lmax = \max_{i=1,\dots,m} \ell_c(x_i)~.
 \]
-Si consideri l'albero $D$-ario completo di profondità $\lmax$. Possiamo posizionare ogni parola di codice di $c$ su un nodo dell'albero seguendo dalla radice il cammino corrispondente ai simboli della parola. Dato che il codice è istantaneo, nessuna parola apparterrà al sottoalbero avente come radice un'altra parola. Possiamo quindi partizionare le foglie dell'albero in sottoinsiemi disgiunti $A_1,\dots,A_m$, dove $A_i$ è il sottoinsieme di foglie associato alla parola $c(x_i)$ ---si veda la Figura~\ref{fig:kraft}.
+Considérese el árbol $D$-ario completo de profundidad $\lmax$. Podemos posicionar cada palabra de código de $c$ sobre un nodo del árbol siguiendo desde la raíz el camino correspondiente a los símbolos de la palabra. Dado que el código es instantáneo, ninguna palabra pertenecerá al subárbol teniendo como raíz otra palabra. Podemos entonces particionar las hojas del árbol en subconjuntos disjuntos $A_1,\dots,A_m$, donde $A_i$ es el subconjunto de hojas asociado a la palabra $c(x_i)$ ---véase la Figura~\ref{fig:kraft}.
 %
 \begin{figure}[h]
 \begin{center}
@@ -166,21 +166,21 @@ Si consideri l'albero $D$-ario completo di profondità $\lmax$. Possiamo posizio
 \end{center}
 \caption{
 \label{fig:kraft}
-Partizione delle foglie indotta dal codice istantaneo indicato dai nodi colorati (da Wikipedia). La dimostrazione della disuguaglianza di Kraft può utilizzare un qualsiasi albero binario completo di profondità maggiore o uguale a $\lmax$. Possiamo quindi sostituire l'albero della figura con un albero binario completo di profondità $\lmax = 3$.
+Partición de las hojas inducida desde el código instantáneo indicado por los nodos coloreados (de Wikipedia). La demostración de la desigualdad de Kraft puede utilizar un árbol binario completo cualquiera de profundidad mayor o igual a $\lmax$. Podemos entonces sustituir el árbol de la figura por un árbol binario completo de profundidad $\lmax = 3$.
 }
 \end{figure}
 
-Ora, il numero di foglie nel sottoalbero di una parola ad altezza $\ell_i$ è ovviamente $D^{\lmax-\ell_i}$. D'altra parte, il numero totale di foglie nell'albero è $D^{\lmax}$. Quindi,
+Ahora, el número de hojas en el subárbol de una palabra de altura $\ell_i$ es obviamente $D^{\lmax-\ell_i}$. Por otro lado, el número total de hojas en el árbol es $D^{\lmax}$. Por tanto,
 \[
     \sum_{i=1}^m D^{\lmax-\ell_i} = \sum_{i=1}^m |A_i| \le D^{\lmax}~.
 \]
-Dividendo per $D^{\lmax}$ il membro sinistro e quello destro della formula otteniamo la disuguaglianza di Kraft.
+Dividiendo por $D^{\lmax}$ el miembro izquierdo y el de la derecha de la fórmula obtenemos la desigualdad de Kraft.
 
-Per dimostrare l'altra implicazione assumiamo che $\ell_1,\dots,\ell_m > 0$ soddisfano la disuguaglianza di Kraft, e sia $\lmax = \max\{\ell_1,\dots,\ell_m\}$. Allora possiamo costruire un codice istantaneo $c : \{x_1,\dots,x_m\} \to \scD^+$ con lunghezze date, ovvero $\ell_c(x_i) = \ell_i$ per $i=1,\dots,m$. A questo scopo si consideri l'albero $D$-ario ordinato e completo di profondità $\lmax$. Al simbolo $x_1$ associamo la parola di codice $c(x_1)$ corrispondente al nodo dell'albero di altezza $\ell_1$ primo in ordine lessicografico (cioè più a sinistra). Ad ogni simbolo successivo $x_i$, associamo la parola di codice $c(x_i)$ corrispondente al primo nodo (sempre in ordine lessicografico) di altezza $\ell_i$ che né appartiene né include sottoalberi radicati su parole scelte in precedenza ---si veda nuovamente la Figura~\ref{fig:kraft}. Si noti che il codice così costruito è istantaneo, dato che nessuna parola comparirà nel sottoalbero radicato su un'altra parola. Dato che le lunghezze soddisfano la disuguaglianza di Kraft, il numero totale di foglie necessarie a creare il codice è
+Para demostrar la otra implicación asumimos que $\ell_1,\dots,\ell_m > 0$ satisfacen la desigualdad de Kraft, y sea $\lmax = \max\{\ell_1,\dots,\ell_m\}$. Entonces podemos construir un código instantáneo $c : \{x_1,\dots,x_m\} \to \scD^+$ con longitudes dadas, es decir, $\ell_c(x_i) = \ell_i$ para $i=1,\dots,m$. A este propósito, considérese el árbol $D$-ario ordenado y completo de profundidad $\lmax$. Al símbolo $x_1$ le asociamos la palabra de código $c(x_1)$ correspondiente al nodo del árbol de altura $\ell_1$ primero en orden lexicográfico (es decir, más a la izquierda). A cada símbolo sucesivo $x_i$, asociamos la palabra de código $c(x_i)$ correspondiente al primer nodo (siempre en orden lexicográfico) de altura $\ell_i$ que ni pertenezca ni incluya subárboles radicados sobre palabras elegidas previamente ---véase nuevamente la Figura~\ref{fig:kraft}. Nótese que el código así construido es instantáneo, dado que ninguna palabra aparecerá en el subárbol radicado sobre otra palabra. Dado que las longitudes satisfacen la desigualdad de Kraft, el número total de hojas necesarias para crear el código es
 \[
     \sum_{i=1}^m D^{\lmax-\ell_i} \le D^{\lmax}
 \]
-ovvero non maggiore delle foglie disponibili nell'albero.
+es decir, no mayor de las hojas disponibles en el árbol.
 \end{proof}
 Vediamo ora come costruire un buon codice istantaneo, ovvero un codice che tenda a minimizzare~(\ref{eq:obj}). Fissato $D > 1$ e un modello di sorgente $\langle X,p \rangle$, la disuguaglianza di Kraft ci dice che possiamo limitarci a trovare dei numeri positivi $\ell_1,\dots,\ell_m$ che la soddisfino. Infatti, trovati questi possiamo costruire automaticamente un codice istantaneo con quelle lunghezze. Quindi dobbiamo risolvere il problema
 \[
