@@ -96,25 +96,25 @@ Docente: \textit{Nicolò Cesa-Bianchi} \hfill versione \today
 
 \bigskip
 
-Riprendiamo il nostro obiettivo di questa prima fase: la ricerca di un codice sorgente ottimo. Ovvero, dato un modello di sorgente $\langle\scX,p\rangle$ vogliamo trovare il codice $c : \scX\to\scD^+$ tale che il valore atteso
+Retomemos nuestro objetivo de esta primera fase: la búsqueda de un código fuente óptimo. Es decir, dado un modelo de fuente $\langle\scX,p\rangle$ queremos encontrar el código $c : \scX\to\scD^+$ tal que el valor esperado
 \begin{equation}
 \label{eq:obj}
     \E\bigl[\ell_c\bigr] = \sum_{x\in\scX} \ell_c(x)\,p(x)
 \end{equation}
-della lunghezza di parola di codice sia minimo.
+de la longitud de palabra de código sea mínimo.
 
-Come abbiamo già osservato in precedenza, perché un qualunque codice $c$ sia utilizzabile in pratica deve essere possibile il processo di decodifica di messaggi. Ovvero, data una parola di codice $\by\in\scD^+$ deve essere possibile risalire al messaggio $\bx\in\scX^+$ tale che $C(\bx)=\by$. Per evitare di avere un codice inutilizzabile come soluzione ottima, ci siamo quindi ristretti ai codici univocamente decodificabili. Ovvero, i codici la cui estensione non è singolare. Purtoppo, anche i codici univocamente decodificabili possono presentare dei problemi dal punto di vista dell'utilizzo pratico, come si vede dall'esempio seguente.
+como ya hemos observado antes, para que un código $c$ cualquiera sea utilizable en la práctica, debe ser posible el proceso de decodificación de mensajes. Es decir, dada una palabra de código $\by\in\scD^+$ debe ser posible remontarse al mensaje $\bx\in\scX^+$ tal que $C(\bx)=\by$. Para evitar tener un código inutilizable como solución óptima, estamos por tanto restringidos a los códigos unívocamente decodificables. Es decir, los códigos cuya extensión no es singular. Por desgracia, también los códigos unívocamente decodificables pueden presentar problemas desde el punto de vista práctico, como se ve en el ejemplo siguiente.
 %
 \begin{example}
 \label{ex:ud}
-Dato $\scX = \{\heartsuit,\diamondsuit,\clubsuit,\spadesuit\}$, si consideri il seguente codice binario univocamente decodificabile
+Dado $\scX = \{\heartsuit,\diamondsuit,\clubsuit,\spadesuit\}$, se considera el siguiente código binario unívocamente decodificable
 \[
     c(\heartsuit) = 10 \quad c(\diamondsuit) = 00 \quad c(\clubsuit) = 11 \quad c(\spadesuit) = 110~.
 \]
-Supponiamo ora di aver utilizzato l'estensione $C$ per codificare un messaggio $\bx\in\scX^+$ e di aver ottenuto la parola di codice $110\dots 0$. Durante il processo di decodifica, per capire se il primo simbolo del messaggio sorgente è $\clubsuit$ piuttosto che $\spadesuit$ dobbiamo verificare se il numero di zeri che segue $11$ sia pari o dispari. Infatti, se il numero di zeri è pari allora il messaggio dev'essere della forma $\clubsuit\diamondsuit\dots\diamondsuit$. Invece, se il numero di zeri è dispari, allora il messaggio dev'essere della forma $\spadesuit\diamondsuit\dots\diamondsuit$.
+Supongamos ahora que hubiéramos utilizado la extensión $C$ para codificar un mensaje $\bx\in\scX^+$ y hubiéramos obtenido la palabra de código $110\dots 0$. Durante el proceso de decodificación, para entender si el primer símbolo del mensaje fuente es $\clubsuit$ en vez de $\spadesuit$ deberíamos verificar si el número de ceros que siguen a $11$ es par o impar. De hecho, si el número de ceros es par, entonces el mensaje debe ser de la forma $\clubsuit\diamondsuit\dots\diamondsuit$. En otro caso, si el número de ceros es impar, entonces el mensaje debe ser de la forma $\spadesuit\diamondsuit\dots\diamondsuit$.
 \end{example}
 %
-L'esempio precedente mostra che un codice univocamente decodificabile può essere tale che per cominciare a decodificare il primo simbolo di un messaggio dobbiamo aspettare di leggere l'ultimo simbolo della sua codifica. Esaminando il codice, ci accorgiamo che il problema sta nel fatto che la parola di codice per $\clubsuit$ è un prefisso della parola di codice per $\spadesuit$. Se nessuna parola di codice fosse prefisso di un'altra, allora potremmo decodificare i simboli sorgente mano a mano che riceviamo i simboli di codice.
+El ejemplo precedente muestra que un código unívocamente decodificable puede ser tal que, para comenzar a decodificar el primer símbolo de un mensaje, debamos esperar a leer el último símbolo de su codificación. Examinando el código, nos damos cuenta de que el problema está en el hecho de que la palabra de código para $\clubsuit$ es un prefijo de la palabra de código para $\spadesuit$. Si ninguna palabra de código fuese prefijo de otra, entonces podríamos decodificar los símbolos fuente conforme recibiésemos los símbolos de código.
 
 Si noti che possiamo rimediare a questo problema riservando un simbolo di codice per separare le codifiche dei simboli sorgente in una parola di codice. Per esempio, il codice binario dell'Esempio~\ref{ex:ud} diventerebbe il seguente codice ternario
 \[
