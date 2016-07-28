@@ -85,11 +85,13 @@
 \begin{center}
 \fbox{
 \begin{minipage}{0.9\textwidth}
-\textbf{(F1X) Teoria dell'Informazione e della Trasmissione}
+\textbf{Teoría de la Información y de la Transmisión}
 \begin{center}
-\textbf{\Large Codici istantanei e disuguaglianza di Kraft}
+\textbf{\Large Códigos instantáneos y la desigualdad de Kraft}
 \end{center}
-Docente: \textit{Nicolò Cesa-Bianchi} \hfill versione \today
+Docente: \textit{Nicolò Cesa-Bianchi} \\ 
+Traducción: \textit{Mario Román} \\
+Licencia: Creative Commons BY-SA-NC \hfill versión \today 
 \end{minipage}
 }
 \end{center}
@@ -182,30 +184,30 @@ Para demostrar la otra implicación asumimos que $\ell_1,\dots,\ell_m > 0$ satis
 \]
 es decir, no mayor de las hojas disponibles en el árbol.
 \end{proof}
-Vediamo ora come costruire un buon codice istantaneo, ovvero un codice che tenda a minimizzare~(\ref{eq:obj}). Fissato $D > 1$ e un modello di sorgente $\langle X,p \rangle$, la disuguaglianza di Kraft ci dice che possiamo limitarci a trovare dei numeri positivi $\ell_1,\dots,\ell_m$ che la soddisfino. Infatti, trovati questi possiamo costruire automaticamente un codice istantaneo con quelle lunghezze. Quindi dobbiamo risolvere il problema
+Veamos ahora cómo construir un buen código instantáneo, es decir, un código que tienda a minimizar~(\ref{eq:obj}). Fijado $D > 1$ y un modelo de fuente $\langle X,p \rangle$, la desigualdad de Kraft nos dice que podemos limitarnos a buscar números positivos $\ell_1,\dots,\ell_m$ que la satisfagan. De hecho, una vez encontrados, podemos construir automáticamente un código instantáneo con esas longitudes. Por tanto, debemos resolver el problema
 \[
     \left\{ \begin{array}{l}
        {\dt \min_{\ell_1,\dots,\ell_m} \sum_{i=1}^m \ell_i\,p_i }
     \\[2mm]
-        \text{tale che} {\dt \quad \sum_{i=1}^m D^{-\ell_i} \le 1 }
+        \text{tal que} {\dt \quad \sum_{i=1}^m D^{-\ell_i} \le 1 }
     \end{array} \right.
 \]
-dove $p_i = p(x_i)$ per $i=1,\dots,m$.
+donde $p_i = p(x_i)$ para $i=1,\dots,m$.
  
-Possiamo ora osservare che, dato che $p_1+\cdots+p_m = 1$ (è una distribuzione di probabilità), possiamo porre $D^{-\ell_i} \le p_i$ in modo che
+Podemos ahora observar que, dado que $p_1+\cdots+p_m = 1$ (es una distribución de probabilidad), podemos poner $D^{-\ell_i} \le p_i$ de forma que
 \[
-    \sum_{i=1}^m D^{-\ell_i} \le \sum_{i=1}^m p_i = 1$
+    \sum_{i=1}^m D^{-\ell_i} \le \sum_{i=1}^m p_i = 1
 \]
-soddisfando così la disuguaglianza di Kraft. Risolvendo per $\ell_i$ otteniamo la condizione
+satisfaciendo así la desigualdad de Kraft. Resolviendo para $\ell_i$ obtenemos la condición
 \[
     \ell_i \ge \log_D\frac{1}{p_i}~.
 \]
-Quindi, è sufficiente porre $\ell_i = \bigl\lceil \log_D\tfrac{1}{p_i} \bigr\rceil$ per avere degli interi che soddisfano la disuguaglianza di Kraft. Il codice istantaneo risultante è noto come \textbf{codice di Shannon}.
+Por tanto, es suficiente tener $\ell_i = \bigl\lceil \log_D\tfrac{1}{p_i} \bigr\rceil$ para tener enteros que satisfagan la desigualdad de Kraft. El código instantáneo resultante se conoce como \textbf{código de Shannon}.
 
-\`E interessante studiare il caso particolare in cui i $p_i$ siano dei reciproci di potenze di $D$. Per esempio, quando $p_1 = \tfrac{1}{2}$, $p_2 = \tfrac{1}{4}$, $p_3 = \tfrac{1}{8}$, $p_4 = \tfrac{1}{8}$ per $D=2$ e $m=4$. In questi casi, la lunghezza della codice di Shannon può essere calcolata esattamente come
+Es interesante estudiar el caso particular en el que los $p_i$ sean inversos de potencias de $D$. Por Ejemplo, cuando $p_1 = \tfrac{1}{2}$, $p_2 = \tfrac{1}{4}$, $p_3 = \tfrac{1}{8}$, $p_4 = \tfrac{1}{8}$ para $D=2$ e $m=4$. En estos casos, la longitud del código de Shannon puede ser calculada exactamente como
 \[
     \sum_{i=1}^m \ell_i\,p_i = \sum_{i=1}^m p_i\log_D\frac{1}{p_i}~.
 \]
-Questa quantità, che è una proprietà della distribuzione $p_1,\dots,p_m$ soltanto, è nota come \textbf{entropia}. Le relazioni fra entropia e codifica ottima verrà approfondita nelle prossime lezioni.
+Esta cantidad, que es una propiedad sólo de la distribución $p_1,\dots,p_m$, se conoce como \textbf{entropía}. Las relaciones entre entropía y codificación óptima vendrán profundizadas en las siguientes lecciones.
 
 \end{document}
